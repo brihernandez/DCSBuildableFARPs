@@ -1,6 +1,9 @@
 # Moveable FARPs Proof of Concept
 
-Saw this feature on a server and they wouldn't explain how they did it, so I wanted to try recreating it. Basically you can move around the Invisible FARP using mist.teleportToPoint. More complicated uses of this, when combined with the slot blocker, could be to allow players to "build" FARPs at arbitrary points on the map as forward bases.
+Saw this feature on a server and they didn't explain how they did it, so I wanted to try recreating it. Basically you can move around the Invisible FARP using mist.teleportToPoint. More complicated uses of this, when combined with the slot blocker, could be to allow players to "build" FARPs at arbitrary points on the map as forward bases.
+
+## Update!
+Since posting this, the Strategic DCS dev has weighed in with their thoughts. [See the original developer's notes below!](#Notes-from-the-original-developer)
 
 ## [Click to watch a demo of this!](https://www.youtube.com/watch?v=-3xZhQB6xmc)
 
@@ -75,4 +78,21 @@ I wasn't able to consistently reproduce this, but I noticed if I built FARPs in 
 
 Strategic DCS (the server this was inspired by) doesn't *appear* to have problems with their dynamic FARP spawning, but it's also a far more infrequent and labor intensive (on the part of the players) option so it's possible as long as people aren't doing this super often and spamming the commands this is a non-issue. This is something that would require more testing.
 
+## Notes from the original developer!
+
+Martin from [Strategic DCS](https://strategic-dcs.com/) has shared new information on their implementation!
+
+1. I do consider it a total hack that seems to work...for now
+
+2. If you, or another unit (destroyed or otherwise) is on the invisible farp etc. and another player tries to spawn, instead of getting flight is delayed, they'll spawn at the original miz location - the new world.removeJunk is very useful to avoid this and also monitor player births and perhaps kick back to spectators with your own "flight is delayed" style thing
+
+3. If you teleport it more than once, the issue of respawning at original miz location seems to occur more often
+
+4. If you use world.getAirbases() it'll have duplicate IDs so need to dedupe, and you will get scripting errors if you try accessing some functions on the old one (hasAttribute I believe it was will throw errors) so filter accordingly to ensure the right calls on the right objects
+
+### Additional comments
+
+To avoid (3) I have 20 farps for each coalition out the way of the map and keep note of any farp deployed within the running session
+
+To handle FARP establishment / slotability I just use onPlayerTryChangeSlot hook - but given all my logic is running outside DCS (download the miz, you'll find it's a very empty miz file with just the units in) I push the state to DCS's hook environment and then have onPlayerTryChangeSlot lookup in a table very quickly / locally to ensure it remains fast
 
