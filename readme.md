@@ -2,9 +2,9 @@
 
 Saw this feature on a server and they wouldn't explain how they did it, so I wanted to try recreating it. Basically you can move around the Invisible FARP using mist.teleportToPoint. More complicated uses of this, when combined with the slot blocker, could be to allow players to "build" FARPs at arbitrary points on the map as forward bases.
 
-## [Click to watch a demo of this!](https://www.youtube.com/watch?v=0cpb087wQMI)
+## [Click to watch a demo of this!](https://www.youtube.com/watch?v=-3xZhQB6xmc)
 
-![https://www.youtube.com/watch?v=0cpb087wQMI](screen.jpg)
+![](screen.jpg)
 
 This is insanely cool, and I think there's a lot of potential uses for this on online servers. Many thanks to EatLeadCobra for figuring out the trick, and many, *many* thanks to the scripting folks on hoggit (kukiric and MARLAN) who guided me through setting up the environment and the volatile minefield that is DCS scripting!
 
@@ -29,7 +29,7 @@ Once the FARP has been built, the AV8B slots can be selected, and will spawn on 
 The short answer:
 
 1. Make a "Invisible FARP" static object, and make sure both its name fields match.
-2. Add player aircraft near the FARP with the "ramp start" or similar optins which cause it to snap to the FARP.
+2. Add player aircraft near the FARP with the "ramp start" or similar options which cause it to snap to the FARP.
 3. Use [`mist.teleportToPoint`](https://wiki.hoggitworld.com/view/MIST_teleportToPoint) to teleport the FARP somewhere else.
 4. The group will spawn on the FARP even after it's been moved.
 
